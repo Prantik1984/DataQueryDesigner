@@ -3,3 +3,6 @@
 ################################################################################
 
 /.vs
+/C1DataQueryApp/.vs/C1DataQueryApp/v17/.suo
+/C1DataQueryApp/C1DataQueryApp/bin/Debug/net6.0
+/C1DataQueryApp/C1DataQueryApp/obj

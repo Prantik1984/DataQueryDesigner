@@ -1,0 +1,24 @@
+﻿@page
+@model C1DataQueryApp.Pages.DataQueryGenerator.JsonDataModel
+@{
+}
+<h1>Json Data</h1>
+<div class="container">
+    <div class="row">
+        <div style="position:relative;">
+        <a class='btn btn-primary' href='javascript:;'>
+            Choose Json File...
+            <input type="file" accept=".json" class="file-button" name="file_source" size="40"  onchange='JsonFileChange(this)'>
+        </a>
+        &nbsp;
+        <span class='label label-info' id="upload-file-info"></span>
+</div>
+
+       
+    </div>
+    <div class="row">
+        <div class="col-sm jsontree"></div>
+        <div class="col-sm">Display</div>
+    </div>
+    
+</div>
