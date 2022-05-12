@@ -17,3 +17,20 @@
             alert(err);
         });
 }
+
+function dragJsonKey($event) {
+    var field = createField("test");
+    var node = document.getElementById('fields');
+    node.innerHTML += field;
+    console.log(node);
+    //node.appendChild(field);
+    //console.log($event.target.innerHTML);
+}
+
+function createField(text) {
+    return `
+    <button class="btn btn-default">
+                    ${text}
+                </button>
+  `
+}
