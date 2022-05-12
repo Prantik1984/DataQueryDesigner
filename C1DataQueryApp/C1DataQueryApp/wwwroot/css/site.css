@@ -34,3 +34,16 @@ body {
     height:200px;
     overflow-y:scroll;
 }
+.fieldsDiv {
+    border: solid;
+    height: 500px;
+    overflow-y: scroll;
+    overflow-x:scroll;
+}
+
+.fieldsDiv button
+{
+    height:50px;
+    width:100px;
+    margin:2px;
+}

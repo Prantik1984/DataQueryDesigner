@@ -19,17 +19,28 @@
 }
 
 function dragJsonKey($event) {
-    var field = createField("test");
-    var node = document.getElementById('fields');
-    node.innerHTML += field;
-    console.log(node);
+    $event.dataTransfer.setData("fieldData", $event.target.innerHTML);
+    //var field = createField("test");
+    //var node = document.getElementById('fields');
+    //node.innerHTML += field;
+    //console.log(node);
     //node.appendChild(field);
     //console.log($event.target.innerHTML);
 }
-
+function dropJsonKey(ev) {
+    ev.preventDefault();
+    var jsonField = ev.dataTransfer.getData("fieldData");
+    var field = createField(jsonField);
+    var node = document.getElementById('fields');
+    node.innerHTML += field;
+    //ev.target.appendChild(document.getElementById(data));
+}
+function allowDrop(ev) {
+    ev.preventDefault();
+}
 function createField(text) {
     return `
-    <button class="btn btn-default">
+    <button class="btn btn-primary">
                     ${text}
                 </button>
   `
