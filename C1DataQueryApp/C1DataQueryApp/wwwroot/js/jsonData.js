@@ -1,4 +1,27 @@
-﻿function JsonFileChange(th) {
+﻿function RenderJsonTree(th) {
+    let file = th.files[0];
+    let reader = new FileReader();
+    reader.readAsText(file);
+    reader.onload = function () {
+        ReactDOM.render(<JsonField>{reader.result}</JsonField>, document.getElementById('fieldsTree'));
+    };
+    //ReactDOM.render(<Hello />, document.getElementById('fieldsTree'));
+}
+function JsonField(json) {
+     //console.log(json);
+    //var propNames = Object.keys(parsedJson);
+    //console.log(_.keys(json));
+    Object.keys(json).map((key, i) => {
+        console.log(i);
+    })
+    return <h1>Hello</h1>
+}
+function Hello() {
+    return <h1>Hello World!</h1>;
+}
+
+
+function JsonFileChange(th) {
     $("#upload-file-info").html($(th).val());
     import("https://localhost:7035/js/jsonView/view.js")
         .then(function (jsonView) {
@@ -20,12 +43,6 @@
 
 function dragJsonKey($event) {
     $event.dataTransfer.setData("fieldData", $event.target.innerHTML);
-    //var field = createField("test");
-    //var node = document.getElementById('fields');
-    //node.innerHTML += field;
-    //console.log(node);
-    //node.appendChild(field);
-    //console.log($event.target.innerHTML);
 }
 function dropJsonKey(ev) {
     ev.preventDefault();
@@ -33,7 +50,6 @@ function dropJsonKey(ev) {
     var field = createField(jsonField);
     var node = document.getElementById('fields');
     node.innerHTML += field;
-    //ev.target.appendChild(document.getElementById(data));
 }
 function allowDrop(ev) {
     ev.preventDefault();

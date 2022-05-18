@@ -8,7 +8,7 @@
         <div style="position:relative;">
         <a class='btn btn-primary' href='javascript:;'>
             Choose Json File...
-            <input type="file" accept=".json" class="file-button" name="file_source" size="40"  onchange='JsonFileChange(this)'>
+            <input type="file" accept=".json" class="file-button" name="file_source" size="40"  onchange='RenderJsonTree(this)'>
         </a>
         &nbsp;
         <span class='label label-info' id="upload-file-info"></span>
@@ -17,12 +17,25 @@
        
     </div>
     <div class="row">
-        <div class="col-sm jsontree"></div>
-        <div class="col-sm">
+        <div class="col-sm jsontree" id="fieldsTree"></div>
+        <div class="col-sm fieldsParent">
             <div class="row fieldsDiv" id="fields" ondrop="dropJsonKey(event)" ondragover="allowDrop(event)">
                 
             </div>
-            <div class="row"></div>
+            
          </div>
+    </div>
+    <div class="row">
+        <div class="col-sm">
+            <div class="row">
+            <div class="col-sm">
+                <button class="btn btn-primary">Generate SQL</button>
+            </div>
+            <div class="col-sm">
+                <button class="btn btn-primary">View Data</button>
+            </div>
+            </div>
+        </div>
+        <div class="col-sm"></div>
     </div>
 </div>
