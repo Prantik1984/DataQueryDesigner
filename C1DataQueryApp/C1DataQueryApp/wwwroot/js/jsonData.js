@@ -4,10 +4,16 @@ function RenderJsonTree(th) {
     let reader = new FileReader();
     reader.readAsText(file);
     reader.onload = function () {
-       // JsonField(reader.result)
-        ReactDOM.render(<JsonField>{reader.result}</JsonField>, document.getElementById('fieldsTree'));
+        //var rootNode = JsonField(reader.result);
+        var tree = new wijmo.nav.TreeView('#fieldsTree', {
+            itemsSource: JsonField(reader.result),
+            displayMemberPath: 'header',
+            childItemsPath: 'items'
+            
+        });
+        
     };
-    //ReactDOM.render(<Hello />, document.getElementById('fieldsTree'));
+    
 }
 function getDataType(val) {
     if (Array.isArray(val)) return 'array';
@@ -74,51 +80,17 @@ function AddNode(json, treeNode) {
 }
 
 function JsonField(json) {
-
     const parsedData = getJsonObject(json);
     var rootNode = {
         header: "{*}",
         items:[]
     };
-    var children = JSON.parse(json["children"]);
+    var children = JSON.parse(json);
     AddNode(children, rootNode);
-    console.log(rootNode);
-    //const rootNode = createNode( {
-    //    value: parsedData,
-    //    key: getDataType(parsedData),
-    //    type: getDataType(parsedData),
-    //});
-    ////createSubnode(parsedData, rootNode);
-    //console.log(rootNode);
-    //AddNode(json, rootNode);
-    var ret = <div>{rootNode.key}</div>;
-    return ret;
-    //createSubnode(parsedData, rootNode);
-    //console.log(rootNode);
-    //var treeObject = new Object();
-    //treeObject.Header = "Main";
-    //var children = [];
-    //for (const [key, value] of Object.entries(json)) {
-    //    console.log(`ThisKey ${key}`);
-    //    try {
-    //        var valAsJson = JSON.parse(JSON.stringify(value));
-    //        console.log(valAsJson);
-    //      //  JsonField(valAsJson)
-    //    }
-    //    catch
-    //    {
-
-    //    }
-        
-    //}
-    //console.clear();
-    //var children = json["children"];
-    //var parsedJson = JSON.parse(children);
-    //var treeObject = new Object();
+    var nodes = [];
+    nodes.push(rootNode);
+    return nodes;
     
-    //for (const [key, value] of Object.entries(parsedJson)) {
-    //    console.log(`ThisKey ${key}: ThisValue ${value}`);
-    //}
     
 }
 function getJsonObject(data) {
