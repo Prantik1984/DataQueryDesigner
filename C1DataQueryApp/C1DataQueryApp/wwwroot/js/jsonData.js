@@ -1,4 +1,5 @@
-﻿let tree = new wijmo.nav.TreeView('#fieldsTree', {
+﻿let selectedFields = [];
+let tree = new wijmo.nav.TreeView('#fieldsTree', {
     displayMemberPath: 'header',
     childItemsPath: 'items',
     allowDragging: true
@@ -14,6 +15,8 @@ function allowDrop(ev) {
     ev.preventDefault();
 }
 function dropJsonKey(ev) {
+    if (_.contains(selectedFields, selectedNode)) return;
+    selectedFields.push(selectedNode);
     var field = createField(selectedNode);
     var node = document.getElementById('fields');
     node.innerHTML += field;
@@ -32,6 +35,8 @@ function RenderJsonTree(th) {
     reader.onload = function () {
         try {
             tree.itemsSource = JsonField(reader.result);
+            selectedFields = [];
+            document.getElementById('fields').innerHTML = "";
         }
         catch { }
         
