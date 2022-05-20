@@ -53,24 +53,26 @@ function AddNode(json, treeNode) {
             header: key,
             items: []
         }
-        if (getDataType(value) === 'array') {
-            for (var i = 0; i < value.length; i++) {
-
+        if (typeof value === 'object') {
+            if (getDataType(value) === 'array') {
+                for (var i = 0; i < value.length; i++) {
+                    var arrNode = {
+                        header: i,
+                        items:[]
+                    }
+                    AddNode(value[i], arrNode);
+                    childNode.items.push(arrNode);
+                }
+            }
+            else {
+                
+                AddNode(value, childNode);
             }
         }
-        //if (typeof value === 'object') {
-        //    if (getDataType(value) === 'array') {
-        //        for (var i = 0; i < value.length; i++) {
-        //            childNode.items.push(AddNode(value[i], treeNode));
-        //        }
-        //    }
-        //    else {
-        //        childNode.items.push(AddNode(value, treeNode));
-        //    }
-        //}
         treeNode.items.push(childNode);
     }
 }
+
 function JsonField(json) {
 
     const parsedData = getJsonObject(json);
