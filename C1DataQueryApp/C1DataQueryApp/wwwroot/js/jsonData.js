@@ -14,18 +14,17 @@ function allowDrop(ev) {
     ev.preventDefault();
 }
 function dropJsonKey(ev) {
-    console.log(selectedNode);
-    //js= ev.dataTransfer;
-    //console.log(jsonField);
-    //ev.preventDefault();
-    //var jsonField = ev.dataTransfer.getData("jsonField");
-    //console.log(jsonField);
-    //var jsonField = ev.dataTransfer.getData("fieldData");
-    //var field = createField(jsonField);
-    //var node = document.getElementById('fields');
-    //node.innerHTML += field;
+    var field = createField(selectedNode);
+    var node = document.getElementById('fields');
+    node.innerHTML += field;
 }
-
+function createField(node) {
+    return `
+    <button class="btn btn-primary">
+                    ${node.header}
+                </button>
+  `
+}
 function RenderJsonTree(th) {
     let file = th.files[0];
     let reader = new FileReader();
@@ -121,43 +120,4 @@ function JsonField(json) {
 function getJsonObject(data) {
     return typeof data === 'string' ? JSON.parse(data) : data;
 }
-//function CreateTree(obj) {
 
-//}
-//function Hello() {
-//    return <h1>Hello World!</h1>;
-//}
-
-
-//function JsonFileChange(th) {
-//    $("#upload-file-info").html($(th).val());
-//    import("https://localhost:7035/js/jsonView/view.js")
-//        .then(function (jsonView) {
-//            let file = th.files[0];
-//            let reader = new FileReader();
-//            reader.readAsText(file);
-//            reader.onload = function () {
-//                var tree = jsonView.create(reader.result);
-//                jsonView.render(tree, document.querySelector('.jsontree'));
-
-//            };
-
-//            reader.onerror = function () {
-//            };
-//        }, function (err) {
-//            alert(err);
-//        });
-//}
-
-//function dragJsonKey($event) {
-//    $event.dataTransfer.setData("fieldData", $event.target.innerHTML);
-//}
-
-
-//function createField(text) {
-//    return `
-//    <button class="btn btn-primary">
-//                    ${text}
-//                </button>
-//  `
-//}
