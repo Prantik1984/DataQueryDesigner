@@ -1,19 +1,41 @@
-﻿
-function jsonDataContainerLoaded() {
+﻿let tree = new wijmo.nav.TreeView('#fieldsTree', {
+    displayMemberPath: 'header',
+    childItemsPath: 'items',
+    allowDragging: true
 
+});
+let selectedNode = new Object();
+tree.hostElement.addEventListener("dragstart", function (e) {
+    selectedNode = tree.selectedItem;
+
+}, true);
+
+function allowDrop(ev) {
+    ev.preventDefault();
 }
+function dropJsonKey(ev) {
+    console.log(selectedNode);
+    //js= ev.dataTransfer;
+    //console.log(jsonField);
+    //ev.preventDefault();
+    //var jsonField = ev.dataTransfer.getData("jsonField");
+    //console.log(jsonField);
+    //var jsonField = ev.dataTransfer.getData("fieldData");
+    //var field = createField(jsonField);
+    //var node = document.getElementById('fields');
+    //node.innerHTML += field;
+}
+
 function RenderJsonTree(th) {
     let file = th.files[0];
     let reader = new FileReader();
     reader.readAsText(file);
     reader.onload = function () {
-        var tree = new wijmo.nav.TreeView('#fieldsTree', {
-            itemsSource: JsonField(reader.result),
-            displayMemberPath: 'header',
-            childItemsPath: 'items',
-            allowDragging: true
-            
-        });
+        try {
+            tree.itemsSource = JsonField(reader.result);
+        }
+        catch { }
+        
         
     };
     
@@ -99,51 +121,43 @@ function JsonField(json) {
 function getJsonObject(data) {
     return typeof data === 'string' ? JSON.parse(data) : data;
 }
-function CreateTree(obj) {
+//function CreateTree(obj) {
 
-}
-function Hello() {
-    return <h1>Hello World!</h1>;
-}
+//}
+//function Hello() {
+//    return <h1>Hello World!</h1>;
+//}
 
 
-function JsonFileChange(th) {
-    $("#upload-file-info").html($(th).val());
-    import("https://localhost:7035/js/jsonView/view.js")
-        .then(function (jsonView) {
-            let file = th.files[0];
-            let reader = new FileReader();
-            reader.readAsText(file);
-            reader.onload = function () {
-                var tree = jsonView.create(reader.result);
-                jsonView.render(tree, document.querySelector('.jsontree'));
+//function JsonFileChange(th) {
+//    $("#upload-file-info").html($(th).val());
+//    import("https://localhost:7035/js/jsonView/view.js")
+//        .then(function (jsonView) {
+//            let file = th.files[0];
+//            let reader = new FileReader();
+//            reader.readAsText(file);
+//            reader.onload = function () {
+//                var tree = jsonView.create(reader.result);
+//                jsonView.render(tree, document.querySelector('.jsontree'));
 
-            };
+//            };
 
-            reader.onerror = function () {
-            };
-        }, function (err) {
-            alert(err);
-        });
-}
+//            reader.onerror = function () {
+//            };
+//        }, function (err) {
+//            alert(err);
+//        });
+//}
 
-function dragJsonKey($event) {
-    $event.dataTransfer.setData("fieldData", $event.target.innerHTML);
-}
-function dropJsonKey(ev) {
-    ev.preventDefault();
-    var jsonField = ev.dataTransfer.getData("fieldData");
-    var field = createField(jsonField);
-    var node = document.getElementById('fields');
-    node.innerHTML += field;
-}
-function allowDrop(ev) {
-    ev.preventDefault();
-}
-function createField(text) {
-    return `
-    <button class="btn btn-primary">
-                    ${text}
-                </button>
-  `
-}
+//function dragJsonKey($event) {
+//    $event.dataTransfer.setData("fieldData", $event.target.innerHTML);
+//}
+
+
+//function createField(text) {
+//    return `
+//    <button class="btn btn-primary">
+//                    ${text}
+//                </button>
+//  `
+//}
