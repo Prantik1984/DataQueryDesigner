@@ -3,7 +3,7 @@
 @{
 }
 <h1>Json Data</h1>
-<div class="container">
+<div class="container" onload="jsonDataContainerLoaded()">
     <div class="row">
         <div style="position:relative;">
         <a class='btn btn-primary' href='javascript:;'>
@@ -17,8 +17,8 @@
        
     </div>
     <div class="row">
-        <div class="col-sm jsontree" id="fieldsTree"></div>
-        <div class="col-sm fieldsParent">
+        <div class="col-sm wj-treeview" id="fieldsTree"></div>
+        <div class="col-sm fieldsParent wj-treeview">
             <div class="row fieldsDiv" id="fields" ondrop="dropJsonKey(event)" ondragover="allowDrop(event)">
                 
             </div>

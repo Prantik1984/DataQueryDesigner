@@ -1,14 +1,17 @@
 ﻿
+function jsonDataContainerLoaded() {
+
+}
 function RenderJsonTree(th) {
     let file = th.files[0];
     let reader = new FileReader();
     reader.readAsText(file);
     reader.onload = function () {
-        //var rootNode = JsonField(reader.result);
         var tree = new wijmo.nav.TreeView('#fieldsTree', {
             itemsSource: JsonField(reader.result),
             displayMemberPath: 'header',
-            childItemsPath: 'items'
+            childItemsPath: 'items',
+            allowDragging: true
             
         });
         
