@@ -1,4 +1,5 @@
 ﻿let selectedFields = [];
+let jsonFileData = "";
 let tree = new wijmo.nav.TreeView('#fieldsTree', {
     displayMemberPath: 'header',
     childItemsPath: 'items',
@@ -11,15 +12,23 @@ tree.hostElement.addEventListener("dragstart", function (e) {
 
 }, true);
 
+function generateSelectedData() {
+    var parseddata = jsonPath(JSON.parse(jsonFileData), document.getElementById('jsonString').innerHTML);
+    console.log(parseddata);
+}
+
 function allowDrop(ev) {
     ev.preventDefault();
 }
 function dropJsonKey(ev) {
-    if (_.contains(selectedFields, selectedNode)) return;
+   // if (_.contains(selectedFields, selectedNode)) return;
+    selectedFields = [];
     selectedFields.push(selectedNode);
     var field = createField(selectedNode);
     var node = document.getElementById('fields');
-    node.innerHTML += field;
+    //node.innerHTML += field;
+    node.innerHTML = field;
+    document.getElementById('jsonString').innerHTML = selectedFields[0].path;
 }
 function createField(node) {
     return `
@@ -34,6 +43,7 @@ function RenderJsonTree(th) {
     reader.readAsText(file);
     reader.onload = function () {
         try {
+            jsonFileData = reader.result;
             tree.itemsSource = JsonField(reader.result);
             selectedFields = [];
             document.getElementById('fields').innerHTML = "";
@@ -86,14 +96,16 @@ function AddNode(json, treeNode) {
     {
         var childNode = {
             header: key,
-            items: []
+            items: [],
+            path: treeNode.path+"."+key
         }
         if (typeof value === 'object') {
             if (getDataType(value) === 'array') {
                 for (var i = 0; i < value.length; i++) {
                     var arrNode = {
                         header: i,
-                        items:[]
+                        items: [],
+                        path: childNode.path+"["+i+"]"
                     }
                     AddNode(value[i], arrNode);
                     childNode.items.push(arrNode);
@@ -112,7 +124,8 @@ function JsonField(json) {
     const parsedData = getJsonObject(json);
     var rootNode = {
         header: "{*}",
-        items:[]
+        items: [],
+        path:"$"
     };
     var children = JSON.parse(json);
     AddNode(children, rootNode);
