@@ -6,6 +6,10 @@ let tree = new wijmo.nav.TreeView('#fieldsTree', {
     allowDragging: true
 
 });
+let htmlDetail = new wijmo.grid.FlexGrid('#filteredDataGrid', {
+    autoGenerateColumns: true,
+    isReadOnly: true
+});
 let selectedNode = new Object();
 tree.hostElement.addEventListener("dragstart", function (e) {
     selectedNode = tree.selectedItem;
@@ -15,6 +19,7 @@ tree.hostElement.addEventListener("dragstart", function (e) {
 function generateSelectedData() {
     var parseddata = jsonPath(JSON.parse(jsonFileData), document.getElementById('jsonString').innerHTML);
     console.log(parseddata);
+    htmlDetail.itemsSource = parseddata;
 }
 
 function allowDrop(ev) {
