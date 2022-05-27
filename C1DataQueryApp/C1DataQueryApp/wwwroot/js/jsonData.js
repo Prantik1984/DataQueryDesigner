@@ -17,9 +17,19 @@ tree.hostElement.addEventListener("dragstart", function (e) {
 }, true);
 
 function generateSelectedData() {
-    var parseddata = jsonPath(JSON.parse(jsonFileData), document.getElementById('jsonString').innerHTML);
-    console.log(parseddata);
-    htmlDetail.itemsSource = parseddata;
+    var parseddata = jsonPath(JSON.parse(jsonFileData), selectedFields[0].path);
+    var dataType = getDataType(parseddata[0]);
+    if (dataType === 'array') {
+        htmlDetail.itemsSource = parseddata[0];
+        return;
+    }
+    if (dataType === 'string') {
+        document.getElementById("valueDetail").innerHTML = parseddata[0];
+        return;
+    }
+    var res = [];
+    res.push(parseddata[0]);
+    htmlDetail.itemsSource = res;
 }
 
 function allowDrop(ev) {
@@ -33,12 +43,12 @@ function dropJsonKey(ev) {
     var node = document.getElementById('fields');
     //node.innerHTML += field;
     node.innerHTML = field;
-    document.getElementById('jsonString').innerHTML = selectedFields[0].path;
+    //document.getElementById('jsonString').innerHTML = selectedFields[0].path;
 }
 function createField(node) {
     return `
     <button class="btn btn-primary">
-                    ${node.header}
+                    ${node.path}
                 </button>
   `
 }
